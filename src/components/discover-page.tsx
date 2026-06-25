@@ -6,11 +6,8 @@ import { toast } from "sonner"
 import { api } from "../../convex/_generated/api"
 import { MatchDialog } from "@/components/match-dialog"
 import { ProtectedPage } from "@/components/protected-page"
-import {
-  SwipeCard,
-  SwipeCardExit,
-  type DiscoveryProfile,
-} from "@/components/swipe-card"
+import type { DiscoveryProfile } from "@/components/swipe-card"
+import { SwipeCard, SwipeCardExit } from "@/components/swipe-card"
 import {
   Empty,
   EmptyDescription,
@@ -46,27 +43,28 @@ function DiscoverFeed() {
   useEffect(() => {
     if (candidates) {
       setDeck((previous) =>
-        previous.length === 0 ? (candidates as DiscoveryProfile[]) : previous,
+        previous.length === 0 ? candidates : previous,
       )
     }
   }, [candidates])
 
-  const current = deck[0]
+  const current = deck.at(0)
 
   const handleSwipe = async (direction: "like" | "pass") => {
-    if (!current || busy || exiting) return
+    const profile = deck.at(0)
+    if (!profile || busy || exiting) return
 
     setBusy(true)
-    setExiting({ profile: current, direction })
+    setExiting({ profile, direction })
 
     try {
       const result = await swipe({
-        profileId: current.profileId,
+        profileId: profile.profileId,
         direction,
       })
 
       if (result.matched) {
-        setMatchProfile(current)
+        setMatchProfile(profile)
         setMatchOpen(true)
       }
     } catch (error) {
@@ -100,19 +98,15 @@ function DiscoverFeed() {
       </header>
 
       <div className="relative flex flex-1 flex-col justify-center py-2">
-        {current && !exiting ? (
-          <SwipeCard profile={current} onSwipe={handleSwipe} disabled={busy} />
-        ) : null}
-
         {exiting ? (
           <SwipeCardExit
             profile={exiting.profile}
             direction={exiting.direction}
             onDone={handleExitDone}
           />
-        ) : null}
-
-        {!current && !exiting ? (
+        ) : current ? (
+          <SwipeCard profile={current} onSwipe={handleSwipe} disabled={busy} />
+        ) : (
           <Empty className="border">
             <EmptyHeader>
               <EmptyMedia variant="icon">
@@ -124,7 +118,7 @@ function DiscoverFeed() {
               </EmptyDescription>
             </EmptyHeader>
           </Empty>
-        ) : null}
+        )}
       </div>
 
       <MatchDialog

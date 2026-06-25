@@ -15,6 +15,11 @@ export default [
     },
   },
   {
-    ignores: ["eslint.config.js", ".prettierrc"],
+    ignores: [
+      "eslint.config.js",
+      ".prettierrc",
+      "convex/_generated/**",
+      "src/components/ui/**",
+    ],
   },
 ]

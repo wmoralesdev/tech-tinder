@@ -5,11 +5,8 @@ import { useMutation, useQuery } from "convex/react"
 import { toast } from "sonner"
 import { api } from "../../convex/_generated/api"
 import type { Doc, Id } from "../../convex/_generated/dataModel"
-import {
-  INTENT_OPTIONS,
-  PROFILE_LIMITS,
-  type IntentValue,
-} from "@/lib/profile-constants"
+import type { IntentValue } from "@/lib/profile-constants"
+import { INTENT_OPTIONS, PROFILE_LIMITS } from "@/lib/profile-constants"
 import { formatTechTags, parseTechTags } from "@/lib/parse-tech-tags"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -274,8 +271,8 @@ export function ProfileForm() {
                   <Checkbox
                     id={`intent-${option.value}`}
                     checked={checked}
-                    onCheckedChange={(checked) =>
-                      toggleIntent(option.value, checked)
+                    onCheckedChange={(isChecked) =>
+                      toggleIntent(option.value, isChecked === true)
                     }
                   />
                   <Label htmlFor={`intent-${option.value}`}>{option.label}</Label>

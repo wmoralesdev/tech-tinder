@@ -2,7 +2,7 @@
 
 import { useQuery } from "convex/react"
 import { api } from "../../convex/_generated/api"
-import { intentLabel, type IntentValue } from "@/lib/profile-constants"
+import { intentLabel } from "@/lib/profile-constants"
 import { getPrimaryImageUrl } from "@/lib/profile-images"
 import { ProtectedPage } from "@/components/protected-page"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -102,7 +102,7 @@ function MatchesList() {
                       <div className="flex flex-wrap gap-1.5">
                         {profile.intents.map((intent) => (
                           <Badge key={intent} variant="secondary">
-                            {intentLabel(intent as IntentValue)}
+                            {intentLabel(intent)}
                           </Badge>
                         ))}
                       </div>

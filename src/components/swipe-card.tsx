@@ -1,15 +1,12 @@
 "use client"
 
-import {
-  motion,
-  useMotionValue,
-  useTransform,
-  type PanInfo,
-} from "framer-motion"
+import { motion, useMotionValue, useTransform } from "framer-motion"
+import type { PanInfo } from "framer-motion"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Cancel01Icon, FavouriteIcon } from "@hugeicons/core-free-icons"
 import type { Id } from "../../convex/_generated/dataModel"
-import { intentLabel, type IntentValue } from "@/lib/profile-constants"
+import type { IntentValue } from "@/lib/profile-constants"
+import { intentLabel } from "@/lib/profile-constants"
 import { getPrimaryImageUrl } from "@/lib/profile-images"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"

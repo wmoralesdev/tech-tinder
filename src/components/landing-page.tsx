@@ -1,7 +1,7 @@
 "use client"
 
 import { Link } from "@tanstack/react-router"
-import { SignedIn, SignedOut } from "@clerk/tanstack-react-start"
+import { Show } from "@clerk/tanstack-react-start"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
@@ -32,7 +32,7 @@ export function LandingPage() {
         </section>
 
         <footer className="space-y-3 pb-8">
-          <SignedOut>
+          <Show when="signed-out">
             <Button render={<Link to="/sign-up" />} nativeButton={false} className="w-full" size="lg">
               Get swiping
             </Button>
@@ -45,12 +45,12 @@ export function LandingPage() {
             >
               I already have an account
             </Button>
-          </SignedOut>
-          <SignedIn>
+          </Show>
+          <Show when="signed-in">
             <Button render={<Link to="/discover" />} nativeButton={false} className="w-full" size="lg">
               Open discover
             </Button>
-          </SignedIn>
+          </Show>
         </footer>
       </main>
     </div>
